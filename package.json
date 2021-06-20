@@ -23,6 +23,7 @@
     "tailwindcss": "^2.2.2"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.4.1",
     "alpinejs": "^3.0.8"
   }
 }

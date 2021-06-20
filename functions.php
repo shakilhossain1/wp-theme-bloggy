@@ -9,7 +9,9 @@ function bloggy_widgets_init()
         'id' => 'primary',
         'description' => __('This is sidebar Description', 'bloggy'),
         'before_widget' => '<div id="%1$s" class="widget %2$s">',
-        'after_widget' => '</div>'
+        'after_widget' => '</div>',
+        'before_title' => '<h2 class="widget-title">',
+        'after_title' => '</h2>'
     ]);
 }
 add_action('widgets_init', 'bloggy_widgets_init');
@@ -30,9 +32,10 @@ add_action('after_setup_theme', 'bloggy_setup');
 
 function bloggy_assets()
 {
-    $version = ( wp_get_environment_type() === 'development' ) ? time() : BIIIRD_THEME_VERSION;
+    $theme= wp_get_theme();
+    $version = time();
 
-    wp_register_style('tailwindcss', get_theme_file_uri('/assets/build/css/tailwind.css'), $version, true);
+    wp_register_style('tailwindcss', get_theme_file_uri('/assets/build/css/tailwind.css'));
     wp_register_script('bloggy-js', get_theme_file_uri('/assets/build/js/main.js'));
 
     wp_enqueue_style('tailwindcss');

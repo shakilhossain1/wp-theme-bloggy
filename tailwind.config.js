@@ -13,7 +13,9 @@ module.exports = {
     './front-page.php',
     './header.php',
     './index.php',
-    './assets/src/js/*.js'
+    './assets/src/js/*.js',
+    './functions.php',
+    './single.php'
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -45,5 +47,7 @@ module.exports = {
       backgroundColor: ['active'],
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography')
+  ],
 }

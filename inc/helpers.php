@@ -7,5 +7,5 @@
  */
 function bloggy_build_path($path = '')
 {
-    return get_theme_file_uri('/assets' . $path);
+    return get_theme_file_uri('/assets/build/' . $path);
 }
