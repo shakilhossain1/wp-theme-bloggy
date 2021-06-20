@@ -1,5 +1,5 @@
-<footer class="lg:max-w-7xl lg:mx-auto px-2">
-      <hr class="my-6 border-skin-muted" />
+<footer class="lg:max-w-7xl lg:mx-auto px-2 mt-12">
+      <!-- <hr class="my-6 border-skin-muted" /> -->
       <div
         class="
           space-y-4

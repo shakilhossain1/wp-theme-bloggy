@@ -1,45 +1,58 @@
+function withOpacity(variableName) {
+  return ({ opacityValue }) =>
+    opacityValue !== undefined
+      ? `rgba(${variableName}, ${opacityValue})`
+      : `rgba(${variableName})`;
+}
+
 module.exports = {
   mode: 'jit',
-  // purge: [
-  //   "./**.php",
-  //   "./**/**.php",
-  //   "./assets/src/js/**.js"
-  // ],
   purge: [
     './page.php',
     './single.php',
     './template-parts/*.php',
+    './template-parts/**/*.php',
+    './inc/*.php',
     './footer.php',
     './front-page.php',
     './header.php',
     './index.php',
     './assets/src/js/*.js',
     './functions.php',
-    './single.php'
+    './single.php',
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       backgroundColor: {
         skin: {
-          primary: '#fe4f70'
-        }
+          primary: withOpacity('var(--color-primary)'),
+        },
       },
       textColor: {
         skin: {
-         //  muted: '#ffffff99',
-         muted: '#8F9BAD',
-         light: '#fff',
-         dark: '#203656',
-         primary: '#fe4f70'
-        }
+          //  muted: '#ffffff99',
+          muted: withOpacity('var(--color-muted)'),
+          light: withOpacity('var(--color-light)'),
+          dark: withOpacity('var(--color-dark)'),
+          primary: withOpacity('var(--color-primary)'),
+        },
       },
       borderColor: {
         skin: {
-          muted: '#EBEBEB',
-          primary: '#fe4f70'
-        }
-      }
+          muted: withOpacity('var(--color-muted)'),
+          primary: withOpacity('var(--color-primary)'),
+        },
+      },
+    },
+    container: {
+      padding: {
+        DEFAULT: '1rem',
+        sm: '2rem',
+        lg: '4rem',
+        xl: '5rem',
+        '2xl': '6rem',
+      },
     },
   },
   variants: {
@@ -47,7 +60,5 @@ module.exports = {
       backgroundColor: ['active'],
     },
   },
-  plugins: [
-    require('@tailwindcss/typography')
-  ],
-}
+  plugins: [require('@tailwindcss/typography')],
+};

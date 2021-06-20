@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --color-primary: 254, 79, 112;
+  --color-dark: 32, 54, 86;
+  --color-muted: 143, 155, 173;
+  --color-light: 255, 255, 255;
+}
+
 html {
   scroll-behavior: smooth;
 }

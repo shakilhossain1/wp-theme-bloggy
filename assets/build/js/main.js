@@ -1343,32 +1343,32 @@ function elementBoundEffect(el) {
 }
 
 // packages/alpinejs/src/mutation.js
-var onAttributeRemoveds = new WeakMap();
 var onAttributeAddeds = [];
-var onElRemovedByEl = new WeakMap();
 var onElRemoveds = [];
 var onElAddeds = [];
 function onElAdded(callback) {
   onElAddeds.push(callback);
 }
-function onElRemoved(el, callback) {
-  if (typeof el === "function" && callback === void 0) {
-    onElRemoveds.push(el);
-  } else {
-    if (!onElRemovedByEl.has(el))
-      onElRemovedByEl.set(el, []);
-    onElRemovedByEl.get(el).push(callback);
-  }
+function onElRemoved(callback) {
+  onElRemoveds.push(callback);
 }
 function onAttributesAdded(callback) {
   onAttributeAddeds.push(callback);
 }
 function onAttributeRemoved(el, name, callback) {
-  if (!onAttributeRemoveds.has(el))
-    onAttributeRemoveds.set(el, {});
-  if (!onAttributeRemoveds.get(el)[name])
-    onAttributeRemoveds.get(el)[name] = [];
-  onAttributeRemoveds.get(el)[name].push(callback);
+  if (!el._x_attributeCleanups)
+    el._x_attributeCleanups = {};
+  if (!el._x_attributeCleanups[name])
+    el._x_attributeCleanups[name] = [];
+  el._x_attributeCleanups[name].push(callback);
+}
+function cleanupAttributes(el, names) {
+  if (!el._x_attributeCleanups)
+    return;
+  Object.entries(el._x_attributeCleanups).forEach(([name, value]) => {
+    (names === void 0 || names.includes(name)) && value.forEach((i) => i());
+    delete el._x_attributeCleanups[name];
+  });
 }
 var observer = new MutationObserver(onMutate);
 var currentlyObserving = false;
@@ -1442,13 +1442,7 @@ function onMutate(mutations) {
     }
   }
   removedAttributes.forEach((attrs, el) => {
-    if (onAttributeRemoveds.get(el)) {
-      attrs.forEach((name) => {
-        if (onAttributeRemoveds.get(el)[name]) {
-          onAttributeRemoveds.get(el)[name].forEach((i) => i());
-        }
-      });
-    }
+    cleanupAttributes(el, attrs);
   });
   addedAttributes.forEach((attrs, el) => {
     onAttributeAddeds.forEach((i) => i(el, attrs));
@@ -1461,16 +1455,6 @@ function onMutate(mutations) {
   for (let node of removedNodes) {
     if (addedNodes.includes(node))
       continue;
-    if (onAttributeRemoveds.has(node)) {
-      Object.entries(onAttributeRemoveds.get(node)).forEach(([key, value]) => {
-        value.forEach((i) => i());
-      });
-      onAttributeRemoveds.delete(node);
-    }
-    if (onElRemovedByEl.has(node)) {
-      onElRemovedByEl.get(node).forEach((i) => i());
-      onElRemovedByEl.delete(node);
-    }
     onElRemoveds.forEach((i) => i(node));
   }
   addedNodes = null;
@@ -1904,13 +1888,8 @@ function initTree(el, walker = walk) {
     });
   });
 }
-var onDestroys = new WeakMap();
 function destroyTree(root) {
-  walk(root, (el) => {
-    let callbacks = onDestroys.get(el);
-    callbacks && callbacks.forEach((callback) => callback());
-    onDestroys.delete(el);
-  });
+  walk(root, (el) => cleanupAttributes(el));
 }
 
 // packages/alpinejs/src/plugin.js
@@ -1998,7 +1977,7 @@ var Alpine = {
   get raw() {
     return raw;
   },
-  version: "3.0.8",
+  version: "3.1.0",
   disableEffectScheduling,
   setReactivityEngine,
   addRootSelector,
@@ -2765,19 +2744,31 @@ function isNumeric2(subject) {
 }
 
 // packages/alpinejs/src/directives/x-cloak.js
-directive("cloak", (el) => nextTick(() => mutateDom(() => el.removeAttribute(prefix("cloak")))));
+directive("cloak", (el) => queueMicrotask(() => mutateDom(() => el.removeAttribute(prefix("cloak")))));
 
 // packages/alpinejs/src/directives/x-init.js
 addRootSelector(() => `[${prefix("init")}]`);
 directive("init", skipDuringClone((el, {expression}) => evaluate(el, expression, {}, false)));
 
 // packages/alpinejs/src/directives/x-text.js
-directive("text", (el, {expression}, {effect: effect3}) => {
-  let evaluate2 = evaluateLater(el, expression);
+directive("text", (el, {expression}, {effect: effect3, evaluateLater: evaluateLater2}) => {
+  let evaluate2 = evaluateLater2(expression);
   effect3(() => {
     evaluate2((value) => {
       mutateDom(() => {
         el.textContent = value;
+      });
+    });
+  });
+});
+
+// packages/alpinejs/src/directives/x-html.js
+directive("html", (el, {expression}, {effect: effect3, evaluateLater: evaluateLater2}) => {
+  let evaluate2 = evaluateLater2(expression);
+  effect3(() => {
+    evaluate2((value) => {
+      mutateDom(() => {
+        el.innerHTML = value;
       });
     });
   });
@@ -3093,7 +3084,6 @@ __webpack_require__.r(__webpack_exports__);
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__.default;
 alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.start();
-console.log('hello world');
 
 /***/ }),
 
