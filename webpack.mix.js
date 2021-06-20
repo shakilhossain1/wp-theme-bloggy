@@ -4,4 +4,6 @@ mix
   .js('./assets/src/js/main.js', './assets/build/js')
   .postCss('./assets/src/css/tailwind.css', 'assets/build/css', [
     require('tailwindcss'),
+    require('postcss-import'),
+    require('autoprefixer')
   ]);

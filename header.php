@@ -1,46 +1,31 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="<?php bloginfo( 'charset' ); ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-    <script type="module" crossorigin src="<?= get_theme_file_uri('/assets/index.663fc5e9.js'); ?>"></script>
-    <link rel="modulepreload" href="<?= get_theme_file_uri('/assets/vendor.4f4cfc99.js'); ?>">
-    <link rel="stylesheet" href="<?= get_theme_file_uri('/assets/index.ebdf0847.css'); ?>">
+    <?php wp_head(); ?>
   </head>
   <body
     x-data="{navOpen: false, searchOpen: false}"
-    class="py-4"
+    <?php body_class('py-4') ?>
     :class="{'overflow-hidden': navOpen || searchOpen}"
   >
+    <!-- Mobile Nav Overlay -->
     <div
       x-show.transition.opacity="navOpen"
       class="fixed bg-gray-300 bg-opacity-90 inset-0 z-10"
       id="navOverlay"
     ></div>
+    <!-- Mobile Nav -->
     <div
       id="mobileNav"
-      x-show.transition="navOpen"
+      x-show="navOpen"
+      x-transition
       @click.away="navOpen = false"
-      class="
-        fixed
-        right-0
-        top-0
-        z-50
-        min-h-full
-        w-5/6
-        ml-auto
-        bg-white
-        shadow-md
-        px-8
-        max-w-[300px]
-        flex flex-col
-        justify-start
-        py-10
-      "
+      class="fixed right-0 top-0 z-50 min-h-full w-5/6 ml-auto bg-white shadow-md px-8 max-w-[300px] flex flex-col justify-start py-10"
     >
       <header class="flex items-center justify-between">
-        <img src="<?= get_theme_file_uri('/assets/logo.acac20e2.svg') ?>" alt="Logo" />
+        <img src="<?= bloggy_build_path('imgs/logo.svg') ?>" alt="Logo" />
         <button @click="navOpen = false" class="text-2xl text-skin-muted">
           x
         </button>
@@ -58,9 +43,11 @@
       </ul>
       <footer class="mt-auto">bottom</footer>
     </div>
+    <!-- Search Overlay -->
     <div
       id="searchOverlay"
-      x-show.transition="searchOpen"
+      x-show="searchOpen"
+      x-transition
       class="fixed bg-white inset-0 z-20 flex flex-col justify-start py-6 px-6"
     >
       <button
@@ -95,7 +82,7 @@
         class="px-3 py-6 flex justify-between items-center lg:max-w-7xl mx-auto"
       >
         <div>
-          <img src="<?= get_theme_file_uri('') ?>" alt="Logo" />
+          <img src="<?= bloggy_build_path('imgs/logo.svg') ?>" alt="Logo" />
         </div>
         <div class="flex space-x-3">
           <button
@@ -120,7 +107,7 @@
             </svg>
           </button>
           <button
-            id="searchButton"
+            id="navButton"
             @click="navOpen = true"
             class="bg-skin-primary lg:hidden rounded-full p-2"
             type="button"

@@ -1,9 +1,12 @@
 module.exports = {
   mode: 'jit',
+  // purge: [
+  //   "./**.php",
+  //   "./**/**.php",
+  //   "./assets/src/js/**.js"
+  // ],
   purge: [
-    "./**.php",
-    "./**/**.php",
-    "./src/js/**.js"
+    './*.php'
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -31,7 +34,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ['active'],
+    },
   },
   plugins: [],
 }

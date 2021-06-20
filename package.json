@@ -6,11 +6,10 @@
   "scripts": {
     "dev": "npm run development",
     "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "watch": "npm run development -- --watch",
-    "watch-poll": "npm run watch -- --watch-poll",
+    "postcss:watch": "npx postcss ./assets/src/css/tailwind.css -o ./assets/build/css/tailwind.css --watch",
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +19,8 @@
     "cross-env": "^7.0.3",
     "laravel-mix": "^6.0.24",
     "postcss": "^8.3.5",
+    "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.0.2",
     "tailwindcss": "^2.2.2"
   },
   "dependencies": {
