@@ -6,7 +6,14 @@ module.exports = {
   //   "./assets/src/js/**.js"
   // ],
   purge: [
-    './*.php'
+    './page.php',
+    './single.php',
+    './template-parts/*.php',
+    './footer.php',
+    './front-page.php',
+    './header.php',
+    './index.php',
+    './assets/src/js/*.js'
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
