@@ -1275,20 +1275,6 @@ video {
 	border-color: rgba(var(--color-border-muted), var(--tw-border-opacity));
 	padding: 2.5rem;
 }
-.nav-link {
-	font-size: 1rem;
-	line-height: 1.5rem;
-	--tw-text-opacity: 1;
-	color: rgba(var(--color-dark), var(--tw-text-opacity));
-	transition-property: all;
-	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-	transition-duration: 150ms;
-	transition-duration: 200ms;
-}
-.nav-link:hover {
-	--tw-text-opacity: 1;
-	color: rgba(var(--color-primary), var(--tw-text-opacity));
-}
 .nav-link.active {
 	--tw-text-opacity: 1;
 	color: rgba(var(--color-primary), var(--tw-text-opacity));
@@ -1335,14 +1321,14 @@ video {
 	margin-right: calc(0.5rem * var(--tw-space-x-reverse));
 	margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
-.nav-menu-container .nav-menu li.current_page_item a {
+.nav-menu-container .nav-menu li.current_page_item > a {
 	border-radius: 9999px;
 }
-.nav-menu-container .nav-menu li.current_page_item a {
+.nav-menu-container .nav-menu li.current_page_item > a {
 	--tw-bg-opacity: 1;
 	background-color: rgba(var(--color-primary), var(--tw-bg-opacity));
 }
-.nav-menu-container .nav-menu li.current_page_item a {
+.nav-menu-container .nav-menu li.current_page_item > a {
 	--tw-text-opacity: 1 !important;
 	color: rgba(var(--color-light), var(--tw-text-opacity)) !important;
 }
@@ -1383,6 +1369,15 @@ video {
 .nav-menu-container .nav-menu li.menu-item-has-children {
 	position: relative;
 }
+.nav-menu-container .nav-menu li.menu-item-has-children a {
+	display: flex;
+}
+.nav-menu-container .nav-menu li.menu-item-has-children a {
+	align-items: center;
+}
+.nav-menu-container .nav-menu li.menu-item-has-children a svg {
+	padding-left: 0.25rem;
+}
 .nav-menu-container .nav-menu li.menu-item-has-children ul {
 	position: absolute;
 }
@@ -1416,11 +1411,68 @@ video {
 	--tw-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 	box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.nav-menu-container .nav-menu li.menu-item-has-children ul li {
+	border-bottom-width: 1px;
+}
+.nav-menu-container .nav-menu li.menu-item-has-children ul li {
+	--tw-border-opacity: 1;
+	border-color: rgba(var(--color-border-muted), var(--tw-border-opacity));
+}
+.nav-menu-container .nav-menu li.menu-item-has-children ul .menu-item-has-children > ul {
+	left: 100%;
+}
+.nav-menu-container .nav-menu li.menu-item-has-children ul .menu-item-has-children > ul {
+	top: 0px;
+}
 .nav-menu-container .nav-menu li.menu-item-has-children:hover > ul {
 	display: block !important;
 }
+.mobile-menu li {
+	border-bottom-width: 1px;
+}
+.mobile-menu li {
+	--tw-border-opacity: 1;
+	border-color: rgba(var(--color-border-muted), var(--tw-border-opacity));
+}
+.mobile-menu li {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+.mobile-menu li.current_page_item > a {
+	--tw-text-opacity: 1;
+	color: rgba(var(--color-primary), var(--tw-text-opacity));
+}
+.mobile-menu li.menu-item-has-children {
+
+      }
+.mobile-menu li a {
+	font-size: 1rem;
+	line-height: 1.5rem;
+}
+.mobile-menu li a {
+	font-weight: 600;
+}
+.mobile-menu li a {
+	--tw-text-opacity: 1;
+	color: rgba(var(--color-dark), var(--tw-text-opacity));
+}
+.mobile-menu li a {
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 150ms;
+}
+.mobile-menu li a {
+	transition-duration: 200ms;
+}
+.mobile-menu li a:hover {
+	--tw-text-opacity: 1;
+	color: rgba(var(--color-primary), var(--tw-text-opacity));
+}
 .pointer-events-none {
 	pointer-events: none;
+}
+.static {
+	position: static;
 }
 .fixed {
 	position: fixed;
@@ -1497,6 +1549,9 @@ video {
 .ml-auto {
 	margin-left: auto;
 }
+.mb-6 {
+	margin-bottom: 1.5rem;
+}
 .mt-auto {
 	margin-top: auto;
 }
@@ -1530,6 +1585,9 @@ video {
 .h-1 {
 	height: 0.25rem;
 }
+.h-4 {
+	height: 1rem;
+}
 .min-h-full {
 	min-height: 100%;
 }
@@ -1553,6 +1611,9 @@ video {
 }
 .w-5\/6 {
 	width: 83.333333%;
+}
+.w-4 {
+	width: 1rem;
 }
 .max-w-\[300px\] {
 	max-width: 300px;
@@ -1704,13 +1765,13 @@ video {
 	padding-top: 2.5rem;
 	padding-bottom: 2.5rem;
 }
-.py-2 {
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-}
 .px-6 {
 	padding-left: 1.5rem;
 	padding-right: 1.5rem;
+}
+.py-2 {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
 }
 .pb-12 {
 	padding-bottom: 3rem;

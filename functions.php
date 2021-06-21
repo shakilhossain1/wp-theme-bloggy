@@ -61,3 +61,12 @@ function bloggy_nav_menus()
 }
 
 add_action('init', 'bloggy_nav_menus');
+
+function bloggy_add_arro_submenu( $title, $item, $depth, $args )
+{
+    if (in_array( 'menu-item-has-children', $item->classes, true ) ) {
+        $title .= bloggy_get_icon('arrow-down');
+    }
+    return $title;
+}
+add_filter('nav_menu_item_title', 'bloggy_add_arro_submenu', 10, 4);

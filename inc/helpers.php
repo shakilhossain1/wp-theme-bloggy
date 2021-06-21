@@ -1,5 +1,6 @@
 <?php
 
+require get_template_directory() . "/inc/BloggyIcons.php";
 /**
  * Retrevie the theme build folder
  *
@@ -15,6 +16,11 @@ function bloggy_site_logo()
     if ( function_exists('the_custom_logo') && has_custom_logo() ) {
         the_custom_logo();
     } else {
-        echo '<h1 class="text-skin-dark text-2xl">' . get_bloginfo('name') . '</h1>';
+        echo '<a href="' . site_url() . '"><h1 class="text-skin-dark text-2xl">' . get_bloginfo('name') . '</h1></a>';
     }
+}
+
+function bloggy_get_icon($icon)
+{
+    return BloggyIcons::getIcon($icon);
 }

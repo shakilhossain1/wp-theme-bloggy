@@ -1,6 +1,6 @@
 <div id="searchOverlay" x-show="searchOpen" x-transition class="fixed bg-white inset-0 z-20 flex flex-col justify-start py-6 md:py-12 px-6">
     <button @click="searchOpen = false" class="text-2xl text-skin-muted ml-auto">
-        x
+        <?= bloggy_get_icon('times'); ?>
     </button>
     <div class="md:max-w-[650px] w-full md:mx-auto">
         <form action="#" class="mt-6 text-center">
