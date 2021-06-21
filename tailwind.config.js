@@ -40,7 +40,7 @@ module.exports = {
       },
       borderColor: {
         skin: {
-          muted: withOpacity('var(--color-muted)'),
+          muted: withOpacity('var(--color-border-muted)'),
           primary: withOpacity('var(--color-primary)'),
         },
       },
