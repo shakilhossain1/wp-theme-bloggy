@@ -68,9 +68,39 @@ html {
 
   .widget {
     @apply layout-border;
+
+    .widget-title {
+      @apply text-skin-dark text-2xl font-bold mb-2;
+    }
   }
 
-  .widget-title {
-    @apply text-skin-dark text-2xl font-bold mb-2;
+  .nav-menu-container {
+    @apply hidden lg:block ml-4;
+
+    .nav-menu {
+      @apply space-x-2 flex items-center;
+
+      li {
+        &.current_page_item {
+          a {
+            @apply bg-skin-primary !text-skin-light rounded-full;
+          }
+        }
+        a {
+          @apply py-2 px-4 inline-block text-skin-muted transition-all duration-150 hover:text-skin-dark text-base font-semibold;
+        }
+
+        &.menu-item-has-children {
+          @apply relative;
+          ul {
+            @apply border-t-4 border-skin-primary absolute hidden top-full left-0 z-10 bg-white shadow-md w-[180px];
+          }
+          &:hover > ul {
+            @apply !block;
+          }
+        }
+
+      }
+    }
   }
 }

@@ -45,12 +45,19 @@ function bloggy_assets()
     $version = time();
 
     wp_register_script('bloggy-js', get_theme_file_uri('/assets/build/js/main.js'));
-    wp_register_style('tailwindcss', get_theme_file_uri('/assets/build/css/tailwind.css'));
+    wp_register_style('tailwindcss', get_theme_file_uri('/assets/build/css/tailwind.css'), [], $version);
 
-    // wp_enqueue_script('bloggy-js');
+    wp_enqueue_script('bloggy-js');
     wp_enqueue_style('tailwindcss');
 }
 
-// die(var_dump(get_theme_mod('custom_logo')));
-
 add_action('wp_enqueue_scripts', 'bloggy_assets');
+
+function bloggy_nav_menus()
+{
+    register_nav_menus(array(
+        'primary_menu' => __('Primary Menu', 'bloggy')
+    ));
+}
+
+add_action('init', 'bloggy_nav_menus');
