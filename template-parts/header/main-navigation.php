@@ -9,10 +9,10 @@
             ]);
         ?>
         <div class="flex space-x-3 ml-auto">
-            <button x-on:click="searchOpen = true" id="searchButton" type="button" class="bg-skin-primary rounded-full p-2">
+            <button x-on:click="openSearch" id="searchButton" type="button" class="bg-skin-primary rounded-full p-2">
                 <?= bloggy_get_icon('search'); ?>
             </button>
-            <button id="navButton" x-on:click="navOpen = true" class="bg-skin-primary lg:hidden rounded-full p-2" type="button">
+            <button id="navButton" x-on:click="openNav" class="bg-skin-primary lg:hidden rounded-full p-2" type="button">
                 <?= bloggy_get_icon('burger'); ?>
             </button>
         </div>

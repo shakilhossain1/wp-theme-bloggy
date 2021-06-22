@@ -6,7 +6,7 @@
     <?php wp_head(); ?>
   </head>
   <body
-    x-data="{navOpen: false, searchOpen: false}"
+    x-data="app"
     :class="{'overflow-hidden': navOpen || searchOpen}"
     <?php body_class() ?>
   >
