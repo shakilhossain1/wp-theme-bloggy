@@ -63,7 +63,7 @@ function bloggy_nav_menus()
 add_action('init', 'bloggy_nav_menus');
 
 add_filter( 'clean_url', function( $url ) {
-    if ( FALSE !== strpos( $url, 'main.js' ) ) {
+    if ( FALSE !== strpos( $url, 'bloggy/assets/build/js/main.js' ) ) {
         return "$url' defer='defer";
     }
     return $url;

@@ -1343,32 +1343,32 @@ function elementBoundEffect(el) {
 }
 
 // packages/alpinejs/src/mutation.js
+var onAttributeRemoveds = new WeakMap();
 var onAttributeAddeds = [];
+var onElRemovedByEl = new WeakMap();
 var onElRemoveds = [];
 var onElAddeds = [];
 function onElAdded(callback) {
   onElAddeds.push(callback);
 }
-function onElRemoved(callback) {
-  onElRemoveds.push(callback);
+function onElRemoved(el, callback) {
+  if (typeof el === "function" && callback === void 0) {
+    onElRemoveds.push(el);
+  } else {
+    if (!onElRemovedByEl.has(el))
+      onElRemovedByEl.set(el, []);
+    onElRemovedByEl.get(el).push(callback);
+  }
 }
 function onAttributesAdded(callback) {
   onAttributeAddeds.push(callback);
 }
 function onAttributeRemoved(el, name, callback) {
-  if (!el._x_attributeCleanups)
-    el._x_attributeCleanups = {};
-  if (!el._x_attributeCleanups[name])
-    el._x_attributeCleanups[name] = [];
-  el._x_attributeCleanups[name].push(callback);
-}
-function cleanupAttributes(el, names) {
-  if (!el._x_attributeCleanups)
-    return;
-  Object.entries(el._x_attributeCleanups).forEach(([name, value]) => {
-    (names === void 0 || names.includes(name)) && value.forEach((i) => i());
-    delete el._x_attributeCleanups[name];
-  });
+  if (!onAttributeRemoveds.has(el))
+    onAttributeRemoveds.set(el, {});
+  if (!onAttributeRemoveds.get(el)[name])
+    onAttributeRemoveds.get(el)[name] = [];
+  onAttributeRemoveds.get(el)[name].push(callback);
 }
 var observer = new MutationObserver(onMutate);
 var currentlyObserving = false;
@@ -1442,7 +1442,13 @@ function onMutate(mutations) {
     }
   }
   removedAttributes.forEach((attrs, el) => {
-    cleanupAttributes(el, attrs);
+    if (onAttributeRemoveds.get(el)) {
+      attrs.forEach((name) => {
+        if (onAttributeRemoveds.get(el)[name]) {
+          onAttributeRemoveds.get(el)[name].forEach((i) => i());
+        }
+      });
+    }
   });
   addedAttributes.forEach((attrs, el) => {
     onAttributeAddeds.forEach((i) => i(el, attrs));
@@ -1455,6 +1461,16 @@ function onMutate(mutations) {
   for (let node of removedNodes) {
     if (addedNodes.includes(node))
       continue;
+    if (onAttributeRemoveds.has(node)) {
+      Object.entries(onAttributeRemoveds.get(node)).forEach(([key, value]) => {
+        value.forEach((i) => i());
+      });
+      onAttributeRemoveds.delete(node);
+    }
+    if (onElRemovedByEl.has(node)) {
+      onElRemovedByEl.get(node).forEach((i) => i());
+      onElRemovedByEl.delete(node);
+    }
     onElRemoveds.forEach((i) => i(node));
   }
   addedNodes = null;
@@ -1888,8 +1904,13 @@ function initTree(el, walker = walk) {
     });
   });
 }
+var onDestroys = new WeakMap();
 function destroyTree(root) {
-  walk(root, (el) => cleanupAttributes(el));
+  walk(root, (el) => {
+    let callbacks = onDestroys.get(el);
+    callbacks && callbacks.forEach((callback) => callback());
+    onDestroys.delete(el);
+  });
 }
 
 // packages/alpinejs/src/plugin.js
@@ -1977,7 +1998,7 @@ var Alpine = {
   get raw() {
     return raw;
   },
-  version: "3.1.0",
+  version: "3.0.8",
   disableEffectScheduling,
   setReactivityEngine,
   addRootSelector,
@@ -2744,31 +2765,19 @@ function isNumeric2(subject) {
 }
 
 // packages/alpinejs/src/directives/x-cloak.js
-directive("cloak", (el) => queueMicrotask(() => mutateDom(() => el.removeAttribute(prefix("cloak")))));
+directive("cloak", (el) => nextTick(() => mutateDom(() => el.removeAttribute(prefix("cloak")))));
 
 // packages/alpinejs/src/directives/x-init.js
 addRootSelector(() => `[${prefix("init")}]`);
 directive("init", skipDuringClone((el, {expression}) => evaluate(el, expression, {}, false)));
 
 // packages/alpinejs/src/directives/x-text.js
-directive("text", (el, {expression}, {effect: effect3, evaluateLater: evaluateLater2}) => {
-  let evaluate2 = evaluateLater2(expression);
+directive("text", (el, {expression}, {effect: effect3}) => {
+  let evaluate2 = evaluateLater(el, expression);
   effect3(() => {
     evaluate2((value) => {
       mutateDom(() => {
         el.textContent = value;
-      });
-    });
-  });
-});
-
-// packages/alpinejs/src/directives/x-html.js
-directive("html", (el, {expression}, {effect: effect3, evaluateLater: evaluateLater2}) => {
-  let evaluate2 = evaluateLater2(expression);
-  effect3(() => {
-    evaluate2((value) => {
-      mutateDom(() => {
-        el.innerHTML = value;
       });
     });
   });
@@ -3073,6 +3082,37 @@ var module_default = src_default;
 
 /***/ }),
 
+/***/ "./assets/src/js/app.js":
+/*!******************************!*\
+  !*** ./assets/src/js/app.js ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
+  return {
+    searchOpen: false,
+    navOpen: false,
+    openSearch: function openSearch() {
+      this.searchOpen = true;
+    },
+    closeSearch: function closeSearch() {
+      this.searchOpen = false;
+    },
+    openNav: function openNav() {
+      this.navOpen = true;
+    },
+    closeNav: function closeNav() {
+      this.navOpen = false;
+    }
+  };
+});
+
+/***/ }),
+
 /***/ "./assets/src/js/dropdown.js":
 /*!***********************************!*\
   !*** ./assets/src/js/dropdown.js ***!
@@ -3102,11 +3142,14 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
-/* harmony import */ var _dropdown_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dropdown.js */ "./assets/src/js/dropdown.js");
+/* harmony import */ var _app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app */ "./assets/src/js/app.js");
+/* harmony import */ var _dropdown_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dropdown.js */ "./assets/src/js/dropdown.js");
+
 
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__.default;
-alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.data('dropdown', _dropdown_js__WEBPACK_IMPORTED_MODULE_1__.default);
+alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.data('app', _app__WEBPACK_IMPORTED_MODULE_1__.default);
+alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.data('dropdown', _dropdown_js__WEBPACK_IMPORTED_MODULE_2__.default);
 alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.start();
 
 /***/ }),
