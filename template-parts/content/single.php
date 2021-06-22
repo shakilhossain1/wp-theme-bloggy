@@ -12,7 +12,7 @@
     </div>
     <?php if (has_post_thumbnail()) : ?>
         <!-- <img src="/imgs/editor-lg.jpg" class="rounded-lg" alt="featured image" /> -->
-        <?php the_post_thumbnail('post-thumbnail', ['class' => 'rounded-lg']) ?>
+        <?php the_post_thumbnail('medium_large', ['class' => 'rounded-lg']) ?>
     <?php endif; ?>
     <div class="prose prose-xl">
         <?php the_content(); ?>

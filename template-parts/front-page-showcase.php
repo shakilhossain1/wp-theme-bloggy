@@ -14,7 +14,7 @@
                       rgba(0, 0, 0, 0.6),
                       rgba(0, 0, 0, 0.6)
                     ),
-                    url(<?= has_post_thumbnail() ? get_the_post_thumbnail_url() : bloggy_build_path('imgs/placeholder.png') ?>);
+                    url(<?= has_post_thumbnail() ? get_the_post_thumbnail_url(null, 'medium_large') : bloggy_build_path('imgs/placeholder.png') ?>);
                 " class="showcase shadow-md rounded-xl flex flex-col justify-end pb-12 bg-cover bg-center px-4 h-96 md:h-[500px] md:px-8">
                     <div class="posts-categories-minimal"><?php the_category(); ?></div>
                     <h2 class="mt-4 font-bold text-skin-light text-2xl md:text-4xl">
@@ -57,7 +57,7 @@
                             <div class="w-[60px] h-[60px] rounded-full overflow-hidden flex-none">
                                 <img
                                     class="thumbnail-effect"
-                                    src="<?= has_post_thumbnail() ? get_the_post_thumbnail_url() : bloggy_build_path('imgs/placeholder.png') ?>"
+                                    src="<?= has_post_thumbnail() ? get_the_post_thumbnail_url(null, 'post-avatar') : bloggy_build_path('imgs/placeholder.png') ?>"
                                     alt="<?php the_title(); ?>"
                                 />
                             </div>
@@ -90,7 +90,7 @@
                             <div class="w-[60px] h-[60px] rounded-full overflow-hidden flex-none">
                             <img
                                 class="thumbnail-effect"
-                                src="<?= has_post_thumbnail() ? get_the_post_thumbnail_url() : bloggy_build_path('imgs/placeholder.png') ?>"
+                                src="<?= has_post_thumbnail() ? get_the_post_thumbnail_url(null, 'post-avatar') : bloggy_build_path('imgs/placeholder.png') ?>"
                                 alt="<?php the_title(); ?>"
                             />
                             </div>

@@ -1,7 +1,7 @@
 <article class=" space-y-4 border-b last:border-none border-skin-muted py-4 md:flex md:space-x-4 ">
     <div class=" relative rounded-lg w-full h-60 md:w-64 md:h-48 md:flex-none ">
         <a href="<?php the_permalink(); ?>" class="overflow-hidden absolute inset-0 rounded-lg">
-            <img class="thumbnail-effect" src="<?= has_post_thumbnail() ? get_the_post_thumbnail_url() : bloggy_build_path('imgs/placeholder.png'); ?>" alt="something" />
+            <img class="thumbnail-effect" src="<?= has_post_thumbnail() ? get_the_post_thumbnail_url(null, 'medium') : bloggy_build_path('imgs/placeholder.png'); ?>" alt="something" />
         </a>
         <span class="inline-block absolute top-4 left-4 post-format-badge">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

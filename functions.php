@@ -35,6 +35,8 @@ function bloggy_setup()
 
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
+
+    add_image_size('post-avatar', 60, 60, true);
 }
 
 add_action('after_setup_theme', 'bloggy_setup');
