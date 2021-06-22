@@ -44,7 +44,7 @@ function bloggy_assets()
     $theme = wp_get_theme();
     $version = time();
 
-    wp_register_script('bloggy-js', get_theme_file_uri('/assets/build/js/main.js'));
+    wp_register_script('bloggy-js', get_theme_file_uri('/assets/build/js/main.js'), [], $version, false);
     wp_register_style('tailwindcss', get_theme_file_uri('/assets/build/css/tailwind.css'), [], $version);
 
     wp_enqueue_script('bloggy-js');
@@ -61,6 +61,16 @@ function bloggy_nav_menus()
 }
 
 add_action('init', 'bloggy_nav_menus');
+
+add_filter( 'clean_url', function( $url ) {
+    if ( FALSE === strpos( $url, '.js' ) ) {
+        // not our file
+        return $url;
+    }
+    // Must be a ', not "!
+    return "$url' defer='defer";
+}, 11, 1 );
+
 
 function bloggy_add_arro_submenu( $title, $item, $depth, $args )
 {

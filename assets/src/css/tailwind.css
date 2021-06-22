@@ -114,16 +114,44 @@ html {
     li {
       @apply py-2 border-b border-skin-muted;
 
-      &.current_page_item > a {
+      a {
+        @apply text-skin-dark text-base font-semibold hover:text-skin-primary transition-all duration-200;
+
+        & > svg {
+          @apply hidden;
+        }
+      }
+
+      /* &:not(:last-child) {
+        @apply border-b border-skin-muted;
+      } */
+
+      &.current_page_item > a, &.current_page_item span a {
         @apply text-skin-primary;
       }
 
       &.menu-item-has-children {
+        ul li { @apply py-1 border-none; }
 
-      }
+        ul a {
+          @apply font-normal text-skin-muted hover:text-skin-dark;
+        }
 
-      a {
-        @apply text-skin-dark text-base font-semibold hover:text-skin-primary transition-all duration-200;
+        & > ul {
+          @apply ml-4
+        }
+
+        .link-wrapper {
+          @apply flex justify-between items-center;
+          span {
+            display: inherit;
+            @apply p-2 rounded-md border border-skin-muted cursor-pointer;
+
+            &.active svg {
+              @apply  transition-all duration-150 rotate-180 text-skin-primary;
+            }
+          }
+        }
       }
     }
   }

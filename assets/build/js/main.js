@@ -3073,6 +3073,27 @@ var module_default = src_default;
 
 /***/ }),
 
+/***/ "./assets/src/js/dropdown.js":
+/*!***********************************!*\
+  !*** ./assets/src/js/dropdown.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
+  return {
+    open: false,
+    toggle: function toggle() {
+      this.open = !this.open;
+    }
+  };
+});
+
+/***/ }),
+
 /***/ "./assets/src/js/main.js":
 /*!*******************************!*\
   !*** ./assets/src/js/main.js ***!
@@ -3081,8 +3102,11 @@ var module_default = src_default;
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
+/* harmony import */ var _dropdown_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dropdown.js */ "./assets/src/js/dropdown.js");
+
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__.default;
+alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.data('dropdown', _dropdown_js__WEBPACK_IMPORTED_MODULE_1__.default);
 alpinejs__WEBPACK_IMPORTED_MODULE_0__.default.start();
 
 /***/ }),
