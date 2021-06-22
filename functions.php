@@ -63,12 +63,10 @@ function bloggy_nav_menus()
 add_action('init', 'bloggy_nav_menus');
 
 add_filter( 'clean_url', function( $url ) {
-    if ( FALSE === strpos( $url, '.js' ) ) {
-        // not our file
-        return $url;
+    if ( FALSE !== strpos( $url, 'main.js' ) ) {
+        return "$url' defer='defer";
     }
-    // Must be a ', not "!
-    return "$url' defer='defer";
+    return $url;
 }, 11, 1 );
 
 
