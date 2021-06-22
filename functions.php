@@ -78,3 +78,20 @@ function bloggy_add_arro_submenu( $title, $item, $depth, $args )
     return $title;
 }
 add_filter('nav_menu_item_title', 'bloggy_add_arro_submenu', 10, 4);
+
+/*
+ * Set post views count using post meta
+ */
+function setPostViews($postID) {
+    $countKey = 'post_views_count';
+    $count = get_post_meta($postID, $countKey, true);
+    // die(var_dump($count));
+    if($count==''){
+        $count = 0;
+        delete_post_meta($postID, $countKey);
+        add_post_meta($postID, $countKey, '0');
+    }else{
+        $count++;
+        update_post_meta($postID, $countKey, $count);
+    }
+}

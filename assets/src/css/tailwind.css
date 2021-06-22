@@ -155,4 +155,12 @@ html {
       }
     }
   }
+
+  .posts-categories-minimal .post-categories {
+    @apply flex space-x-2;
+
+    li a {
+      @apply text-xs font-semibold text-skin-light bg-skin-primary py-1 px-2 hover:bg-opacity-90 rounded-full;
+    }
+  }
 }

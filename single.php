@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php
+
+setPostViews(get_the_ID());
+get_header();
+
+?>
 <div id="breadcrumb" class="md:py-4">
     <div class="lg:max-w-7xl mx-auto px-2 text-skin-muted">
         <a href="#" class="transition duration-200 hover:text-skin-primary">Home</a>
