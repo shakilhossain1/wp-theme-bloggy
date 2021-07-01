@@ -1,6 +1,7 @@
 <?php
 
 require get_template_directory() . "/inc/helpers.php";
+require get_template_directory() . "/inc/search-route.php";
 
 function bloggy_widgets_init()
 {
