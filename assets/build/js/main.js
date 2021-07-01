@@ -3181,12 +3181,22 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+// import watch from "alpinejs"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   return {
     search: '',
     posts: [],
     typingTimer: null,
     previousValue: '',
+    isLoading: false,
+    init: function init() {
+      console.log();
+    },
+
+    get isPostAvailable() {
+      return this.posts.length > 0;
+    },
+
     handleSearch: function handleSearch() {
       if (this.previousValue != this.search) {
         clearTimeout(this.typingTimer);

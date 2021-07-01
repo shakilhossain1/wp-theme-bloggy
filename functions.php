@@ -52,6 +52,10 @@ function bloggy_assets()
 
     wp_enqueue_script('bloggy-js');
     wp_enqueue_style('tailwindcss');
+
+    wp_localize_script('bloggy-js', 'themedata', [
+        'asset_path' => get_theme_file_uri('/assets/build')
+    ]);
 }
 
 add_action('wp_enqueue_scripts', 'bloggy_assets');

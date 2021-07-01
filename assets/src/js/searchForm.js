@@ -1,8 +1,18 @@
+// import watch from "alpinejs"
 export default () => ({
   search: '',
   posts: [],
   typingTimer: null,
   previousValue: '',
+  isLoading: false,
+
+  init() {
+    console.log();
+  },
+
+  get isPostAvailable() {
+    return this.posts.length > 0;
+  },
 
   handleSearch() {
     if (this.previousValue != this.search) {
