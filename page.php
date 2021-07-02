@@ -18,7 +18,7 @@
             }
         ?>
     </main>
-    <aside class="lg:col-span-2 mt-12 space-y-12">
+    <aside class="lg:col-span-2 prose prose-sm space-y-12">
         <?php dynamic_sidebar('primary') ?>
     </aside>
 </div>

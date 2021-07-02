@@ -64,7 +64,7 @@ html {
   }
 
   .widget {
-    @apply layout-border;
+    @apply rounded-lg border border-skin-muted p-4;
 
     .widget-title {
       @apply text-skin-dark text-2xl font-bold mb-2;

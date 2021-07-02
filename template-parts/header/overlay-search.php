@@ -7,6 +7,12 @@
             <h2 class="text-skin-dark text-2xl font-bold">Press Esc to close</h2>
             <input type="search" x-model="search" @input="handleSearch" name="q" placeholder="Type Here.." class=" mt-4 border border-skin-muted focus:outline-none focus:border-skin-primary rounded-full py-2 px-4 w-full " />
         </form>
+        <template x-if="!isPostAvailable && !isLoading">
+            <div class="flex justify-center mt-10 text-skin-muted text-lg font-semibold">Nothing to show</div>
+        </template>
+        <template x-if="isLoading">
+            <div class="flex justify-center mt-10 text-skin-muted text-lg font-semibold animate-pulse">Loading...</div>
+        </template>
         <template x-if="isPostAvailable">
             <ul id="searchContent" class="mt-4">
                 <template x-for="post in posts" :key="post.id" x-transition>
@@ -23,9 +29,6 @@
                     </li>
                 </template>
             </ul>
-        </template>
-        <template x-if="!isPostAvailable">
-            <div class="flex justify-center p-4 text-skin-muted text-lg font-semibold">Nothing to show</div>
         </template>
     </div>
 </div>

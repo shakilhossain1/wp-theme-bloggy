@@ -3198,10 +3198,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
 
     handleSearch: function handleSearch() {
+      this.isLoading = false;
+
       if (this.previousValue != this.search) {
         clearTimeout(this.typingTimer);
 
         if (this.search) {
+          this.isLoading = true;
           this.typingTimer = setTimeout(this.getPosts.bind(this), 1000);
         } else {
           this.posts = [];
@@ -3219,14 +3222,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log(_this);
-                _context.next = 3;
+                _context.next = 2;
                 return fetch("http://localhost/blog/wp-json/bloggy/v1/search?term=".concat(_this.search)).then(function (res) {
                   return res.json();
                 });
 
-              case 3:
+              case 2:
                 posts = _context.sent;
+                _this.isLoading = false;
                 _this.posts = posts;
 
               case 5:
