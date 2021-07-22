@@ -7,7 +7,9 @@ export default () => ({
   isLoading: false,
 
   init() {
-    console.log();
+    this.$watch('search', () => {
+      this.handleSearch();
+    });
   },
 
   get isPostAvailable() {

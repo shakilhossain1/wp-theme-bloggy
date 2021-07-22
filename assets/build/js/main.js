@@ -3190,7 +3190,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     previousValue: '',
     isLoading: false,
     init: function init() {
-      console.log();
+      var _this = this;
+
+      this.$watch('search', function () {
+        _this.handleSearch();
+      });
     },
 
     get isPostAvailable() {
@@ -3214,7 +3218,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.previousValue = this.search;
     },
     getPosts: function getPosts() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var posts;
@@ -3223,14 +3227,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return fetch("http://localhost/blog/wp-json/bloggy/v1/search?term=".concat(_this.search)).then(function (res) {
+                return fetch("http://localhost/blog/wp-json/bloggy/v1/search?term=".concat(_this2.search)).then(function (res) {
                   return res.json();
                 });
 
               case 2:
                 posts = _context.sent;
-                _this.isLoading = false;
-                _this.posts = posts;
+                _this2.isLoading = false;
+                _this2.posts = posts;
 
               case 5:
               case "end":

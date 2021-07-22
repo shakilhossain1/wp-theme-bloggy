@@ -28,7 +28,7 @@
         <?php endif; wp_reset_query(); ?>
     </div>
     <!-- Showcase Right Area -->
-    <div x-data="{tab: 'popular'}" class="mt-4 mx-2 p-4 rounded-xl border border-skin-muted md:col-span-2 md:mt-0 ">
+    <div id="showcaseTabs" x-data="{tab: 'popular'}" class="mt-4 mx-2 p-4 rounded-xl border border-skin-muted md:col-span-2 md:mt-0 ">
         <div class="flex space-x-4">
             <button class="tab-btn" @click="tab = 'popular'" :class="{'active': tab === 'popular'}">
                 Popular
@@ -37,15 +37,9 @@
                 Recent
             </button>
         </div>
-        <ul x-show.transition="tab === 'popular'" class="pt-4">
+        <ul x-show="tab === 'popular'" class="pt-4">
             <?php
-                $popular_posts = new WP_Query([
-                    'post_type' => 'post',
-                    'posts_per_page' => 4,
-                    'meta_key' => 'post_views_count',
-                    'orderby' => 'meta_value_num',
-                    'order' => 'DESC',
-                ]);
+                $popular_posts = bloggy_popular_posts_query();
 
                 // query_posts('meta_key=post_views_count&posts_per_page=5&orderby=meta_value_num&
                 // order=DESC')
@@ -74,7 +68,7 @@
                 <p>No posts found!</p>
             <?php endif; wp_reset_query(); ?>
         </ul>
-        <ul x-show.transition="tab === 'recent'" class="pt-4">
+        <ul x-show="tab === 'recent'" class="pt-4">
             <?php
                 $recent_posts = new WP_Query([
                     'post_type' => 'post',
